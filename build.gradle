@@ -1,0 +1,16 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.50"
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url 'https://jitpack.io' }
+    }
+}
