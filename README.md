@@ -1,6 +1,8 @@
 # StringProcessor
 
 ## What is StringProcessor
+[![](https://jitpack.io/v/arnoid/string.processor.svg)](https://jitpack.io/#arnoid/string.processor)
+
 StringProcessor is a tool for procedural string generation.
 
 ### Features
@@ -9,6 +11,26 @@ StringProcessor is a tool for procedural string generation.
 * recursive processing
 
 ## How to
+
+### Gradle
+
+* Add the JitPack repository to your build file
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+* Add the dependency
+```
+dependencies {
+        implementation 'com.github.arnoid:string.processor:1.0.0'
+}
+```
+
+### Coding
 
 `StringProcessor` has following functions:
 * `init(initArray: Array<String>, stringProvider: StringProcessorValueProvider)` - this method should be used for initialization of the `StringValueValueProvider`. All strings will be processed in given sequence. It is advised to use this function to init variables. After processing of any single string returned result is disbanded.
