@@ -1,18 +1,9 @@
-apply plugin: 'java-library'
 apply plugin: 'kotlin'
-apply plugin: 'maven-publish'
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId = 'org.arnoid.string.processor'
-            artifactId = 'library'
-            version = '1.0.0'
-
-            from components.java
-        }
-    }
+jar {
+    baseName "string.processor"
 }
+version = '1.0.0'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
