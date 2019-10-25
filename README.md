@@ -26,7 +26,7 @@ allprojects {
 * Add the dependency
 ```
 dependencies {
-        implementation 'com.github.arnoid:string.processor:1.0.0'
+    implementation 'com.github.arnoid:string.processor:1.0.1'
 }
 ```
 
