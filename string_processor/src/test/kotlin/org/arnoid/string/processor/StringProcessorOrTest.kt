@@ -1,6 +1,5 @@
 package org.arnoid.string.processor
 
-import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.mock
 import junit.framework.TestCase.assertEquals
@@ -11,19 +10,19 @@ import org.mockito.ArgumentMatchers.anyString
 class StringProcessorOrTest {
 
     lateinit var stringProcessor: StringProcessor
-    lateinit var valueProviderMock: StringProcessorValueProvider
+    lateinit var stringProviderMock: StringProvider
 
     @Before
     fun before() {
         stringProcessor = StringProcessor()
-        valueProviderMock = mock {
+        stringProviderMock = mock {
             on { get(anyString()) } doThrow RuntimeException("This should not happened")
         }
     }
 
     @Test
     fun testTagOr() {
-        assertEquals(RESULT_STR, stringProcessor.process(INPUT_STR, valueProviderMock))
+        assertEquals(RESULT_STR, stringProcessor.process(INPUT_STR, stringProviderMock))
     }
 
     companion object {

@@ -9,12 +9,12 @@ import org.junit.Test
 class StringProcessorValueForKeyTest {
 
     lateinit var stringProcessor: StringProcessor
-    lateinit var valueProviderMock: StringProcessorValueProvider
+    lateinit var stringProviderMock: StringProvider
 
     @Before
     fun before() {
         stringProcessor = StringProcessor()
-        valueProviderMock = mock {
+        stringProviderMock = mock {
             on { get(KEY_A) } doReturn VALUE_A
             on { get(KEY_B) } doReturn VALUE_B
             on { get(KEY_C) } doReturn VALUE_C
@@ -23,7 +23,7 @@ class StringProcessorValueForKeyTest {
 
     @Test
     fun testTagValueForKey() {
-        assertEquals(RESULT_STR, stringProcessor.process(INPUT_STR, valueProviderMock))
+        assertEquals(RESULT_STR, stringProcessor.process(INPUT_STR, stringProviderMock))
     }
 
     companion object {

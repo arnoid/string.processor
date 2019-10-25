@@ -10,20 +10,20 @@ import org.mockito.ArgumentMatchers
 class StringProcessorIfTagTest {
 
     lateinit var stringProcessor: StringProcessor
-    lateinit var valueProviderMock: StringProcessorValueProvider
+    lateinit var stringProviderMock: StringProvider
 
     @Before
     fun before() {
         stringProcessor = StringProcessor()
-        valueProviderMock = mock {
+        stringProviderMock = mock {
             on { get(ArgumentMatchers.anyString()) } doThrow RuntimeException("This should not happened")
         }
     }
 
     @Test
     fun testTagIf() {
-        assertEquals(RESULT_STR_TRUE, stringProcessor.process(INPUT_STR_TRUE, valueProviderMock))
-        assertEquals(RESULT_STR_FALSE, stringProcessor.process(INPUT_STR_FALSE, valueProviderMock))
+        assertEquals(RESULT_STR_TRUE, stringProcessor.process(INPUT_STR_TRUE, stringProviderMock))
+        assertEquals(RESULT_STR_FALSE, stringProcessor.process(INPUT_STR_FALSE, stringProviderMock))
     }
 
     companion object {

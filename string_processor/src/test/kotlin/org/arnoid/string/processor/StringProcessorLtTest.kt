@@ -7,26 +7,26 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers
 
-class StringProcessorGeqTest {
+class StringProcessorLtTest {
 
     lateinit var stringProcessor: StringProcessor
-    lateinit var valueProviderMock: StringProcessorValueProvider
+    lateinit var stringProviderMock: StringProvider
 
     @Before
     fun before() {
         stringProcessor = StringProcessor()
-        valueProviderMock = mock {
+        stringProviderMock = mock {
             on { get(ArgumentMatchers.anyString()) } doThrow RuntimeException("This should not happened")
         }
     }
 
     @Test
-    fun testTagGeq() {
-        assertEquals(RESULT_STR, stringProcessor.process(INPUT_STR, valueProviderMock))
+    fun testTagLt() {
+        assertEquals(RESULT_STR, stringProcessor.process(INPUT_STR, stringProviderMock))
     }
 
     companion object {
-        const val INPUT_STR = "\$geq{10}{5} $$ \$geq{5}{10} $$ \$geq{10}{10} $$ \$geq{a}{b} $$ \$geq{b}{a}"
-        const val RESULT_STR = "true \$ false \$ true \$ false \$ false"
+        const val INPUT_STR = "\$lt{10}{5} $$ \$lt{5}{10} $$ \$lt{10}{10} $$ \$lt{a}{b} $$ \$lt{b}{a}"
+        const val RESULT_STR = "false \$ true \$ false \$ false \$ false"
     }
 }

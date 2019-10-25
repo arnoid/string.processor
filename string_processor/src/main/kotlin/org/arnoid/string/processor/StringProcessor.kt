@@ -1,23 +1,31 @@
 package org.arnoid.string.processor
 
+import java.io.StringWriter
+import java.io.Writer
+
 class StringProcessor {
 
-    fun init(initArray: Array<String>, stringProvider: StringProcessorValueProvider) {
+    fun init(initArray: Array<String>, stringProvider: StringProvider) {
         for (initItem in initArray) {
             process(initItem, stringProvider)
         }
     }
 
-    fun process(input: String, stringProvider: StringProcessorValueProvider): String {
+    fun process(input: String, stringProvider: StringProvider): String {
+        val stringWriter = StringWriter()
+        process(input, stringWriter, stringProvider)
+        return stringWriter.toString()
+    }
+
+    fun process(input: String, output: Writer, stringProvider: StringProvider) {
         val inputIterator = InputIterator(input)
-        val output = StringBuilder()
 
         while (inputIterator.hasNext()) {
             val nextChar = inputIterator.next()
             if (nextChar == TAG_ESCAPE) {
                 //control char detected
                 when {
-                    inputIterator.lookup(TAG_ESCAPE) -> output.append(TAG_ESCAPE)
+                    inputIterator.lookup(TAG_ESCAPE) -> output.append(processEscapeChar(inputIterator, stringProvider))
                     lookupIf(inputIterator) -> output.append(processIf(inputIterator, stringProvider))
                     lookupEq(inputIterator) -> output.append(processEq(inputIterator, stringProvider))
                     lookupNeq(inputIterator) -> output.append(processNeq(inputIterator, stringProvider))
@@ -36,8 +44,6 @@ class StringProcessor {
                 output.append(nextChar)
             }
         }
-
-        return output.toString().trim()
     }
 
     private fun lookupNot(inputIterator: InputIterator) = inputIterator.lookup(TAG_NOT)
@@ -91,7 +97,13 @@ class StringProcessor {
         return output.toString()
     }
 
-    private fun processValueForKey(inputIterator: InputIterator, stringProvider: StringProcessorValueProvider): String {
+    private fun processEscapeChar(inputIterator: InputIterator, stringProvider: StringProvider): String {
+        inputIterator.skip(TAG_ESCAPE)
+
+        return "$TAG_ESCAPE"
+    }
+
+    private fun processValueForKey(inputIterator: InputIterator, stringProvider: StringProvider): String {
         val tagContent = readTagContent(inputIterator)
 
         val key = process(tagContent, stringProvider)
@@ -99,12 +111,12 @@ class StringProcessor {
         return process(stringProvider.get(key), stringProvider)
     }
 
-    private fun processNot(inputIterator: InputIterator, stringProvider: StringProcessorValueProvider): String {
+    private fun processNot(inputIterator: InputIterator, stringProvider: StringProvider): String {
         inputIterator.skip(TAG_NOT)
         return process(readTagContent(inputIterator), stringProvider).toBoolean().not().toString()
     }
 
-    private fun processOr(inputIterator: InputIterator, stringProvider: StringProcessorValueProvider): String {
+    private fun processOr(inputIterator: InputIterator, stringProvider: StringProvider): String {
         inputIterator.skip(TAG_OR)
         val leftStatement = process(readTagContent(inputIterator), stringProvider).toBoolean()
         val rightStatement = process(readTagContent(inputIterator), stringProvider).toBoolean()
@@ -112,7 +124,7 @@ class StringProcessor {
         return (leftStatement || rightStatement).toString()
     }
 
-    private fun processAnd(inputIterator: InputIterator, stringProvider: StringProcessorValueProvider): String {
+    private fun processAnd(inputIterator: InputIterator, stringProvider: StringProvider): String {
         inputIterator.skip(TAG_AND)
         val leftStatement = process(readTagContent(inputIterator), stringProvider).toBoolean()
         val rightStatement = process(readTagContent(inputIterator), stringProvider).toBoolean()
@@ -120,7 +132,7 @@ class StringProcessor {
         return (leftStatement && rightStatement).toString()
     }
 
-    private fun processLeq(inputIterator: InputIterator, stringProvider: StringProcessorValueProvider): String {
+    private fun processLeq(inputIterator: InputIterator, stringProvider: StringProvider): String {
         inputIterator.skip(TAG_LEQ)
         val leftStatement = process(readTagContent(inputIterator), stringProvider).toIntOrNull()
         val rightStatement = process(readTagContent(inputIterator), stringProvider).toIntOrNull()
@@ -132,7 +144,7 @@ class StringProcessor {
         }
     }
 
-    private fun processGeq(inputIterator: InputIterator, stringProvider: StringProcessorValueProvider): String {
+    private fun processGeq(inputIterator: InputIterator, stringProvider: StringProvider): String {
         inputIterator.skip(TAG_GEQ)
         val leftStatement = process(readTagContent(inputIterator), stringProvider).toIntOrNull()
         val rightStatement = process(readTagContent(inputIterator), stringProvider).toIntOrNull()
@@ -144,7 +156,7 @@ class StringProcessor {
         }
     }
 
-    private fun processLt(inputIterator: InputIterator, stringProvider: StringProcessorValueProvider): String {
+    private fun processLt(inputIterator: InputIterator, stringProvider: StringProvider): String {
         inputIterator.skip(TAG_LT)
         val leftStatement = process(readTagContent(inputIterator), stringProvider).toIntOrNull()
         val rightStatement = process(readTagContent(inputIterator), stringProvider).toIntOrNull()
@@ -156,7 +168,7 @@ class StringProcessor {
         }
     }
 
-    private fun processGt(inputIterator: InputIterator, stringProvider: StringProcessorValueProvider): String {
+    private fun processGt(inputIterator: InputIterator, stringProvider: StringProvider): String {
         inputIterator.skip(TAG_GT)
         val leftStatement = process(readTagContent(inputIterator), stringProvider).toIntOrNull()
         val rightStatement = process(readTagContent(inputIterator), stringProvider).toIntOrNull()
@@ -168,7 +180,7 @@ class StringProcessor {
         }
     }
 
-    private fun processNeq(inputIterator: InputIterator, stringProvider: StringProcessorValueProvider): String {
+    private fun processNeq(inputIterator: InputIterator, stringProvider: StringProvider): String {
         inputIterator.skip(TAG_NEQ)
 
         val leftStatement = process(readTagContent(inputIterator), stringProvider)
@@ -177,7 +189,7 @@ class StringProcessor {
         return (leftStatement != rightStatement).toString()
     }
 
-    private fun processEq(inputIterator: InputIterator, stringProvider: StringProcessorValueProvider): String {
+    private fun processEq(inputIterator: InputIterator, stringProvider: StringProvider): String {
         inputIterator.skip(TAG_EQ)
 
         val leftStatement = process(readTagContent(inputIterator), stringProvider)
@@ -186,7 +198,7 @@ class StringProcessor {
         return (leftStatement == rightStatement).toString()
     }
 
-    private fun processIf(inputIterator: InputIterator, stringProvider: StringProcessorValueProvider): String {
+    private fun processIf(inputIterator: InputIterator, stringProvider: StringProvider): String {
         inputIterator.skip(TAG_IF)
 
         val ifCondition = readTagContent(inputIterator)
@@ -200,7 +212,7 @@ class StringProcessor {
         }
     }
 
-    private fun processVariable(inputIterator: InputIterator, stringProvider: StringProcessorValueProvider) {
+    private fun processVariable(inputIterator: InputIterator, stringProvider: StringProvider) {
         val outputBuilder = StringBuilder()
 
         while (inputIterator.hasNext()) {

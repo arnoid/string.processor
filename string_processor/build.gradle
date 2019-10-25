@@ -3,7 +3,7 @@ apply plugin: 'kotlin'
 jar {
     baseName "string.processor"
 }
-version = '1.0.0'
+version = '1.0.1'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
