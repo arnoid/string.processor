@@ -45,11 +45,11 @@ All tags start with `$` sign.
 * Format: `$$`
 * Description: this tag is used to insert `$` and avoid processing.
 
-#### Store value in dictionary
+#### Set `value` for `key`
 * Format: `$key:{value}`
 * Description: results of `value` processing will be put into `StringProcessorValueProvider.set(key, value)`.
 
-#### Value from `StringProvider`
+#### Get `value` for `key`
 * Format: `${key}`
 * Description: processor will process `key` and will call `StringProcessorValueProvider.get(key)` with evaluated key. Any value returned by `StringProcessorValueProvider` will be processed and injected into output. 
 
