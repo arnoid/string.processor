@@ -1,6 +1,6 @@
 package org.arnoid.string.processor
 
-internal class InputIterator(val input: String) {
+class InputIterator(val input: String) {
     var index = -1
 
     fun previous(): Char {

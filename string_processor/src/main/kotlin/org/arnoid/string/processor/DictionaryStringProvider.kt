@@ -1,8 +1,8 @@
 package org.arnoid.string.processor
 
 open class DictionaryStringProvider(
-        private val dictionary: MutableMap<String, String> = HashMap(),
-        private val emptyValue: String = ""
+        val dictionary: MutableMap<String, String> = HashMap(),
+        val emptyValue: String = DEFAULT_EMPTY_VALUE
 ) : StringProvider {
     fun clear() {
         dictionary.clear()
@@ -14,5 +14,9 @@ open class DictionaryStringProvider(
 
     override fun set(key: String, value: String) {
         dictionary[key] = value
+    }
+
+    companion object {
+        const val DEFAULT_EMPTY_VALUE = ""
     }
 }
