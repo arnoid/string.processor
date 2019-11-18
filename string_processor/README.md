@@ -45,6 +45,11 @@ All tags start with `$` sign.
 * Format: `$$`
 * Description: this tag is used to insert `$` and avoid processing.
 
+#### Random Array Item
+
+* Format: `$rnd{value1|value2}`
+* Description: tag will split its content by `|` char, pick random item evaluate it and return it.
+
 #### Set `value` for `key`
 * Format: `$key:{value}`
 * Description: results of `value` processing will be put into `StringProcessorValueProvider.set(key, value)`.

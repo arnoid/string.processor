@@ -33,5 +33,3 @@ dependencies {
 ### Using
 
 * `StringProcessor` check [(documentation)](string_processor/README.md):
-* `StringProvider`:
-    * `JvmStringProvider` check [(documentation)](string_provider/jvm_string_provider/README.md)
