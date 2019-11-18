@@ -21,6 +21,7 @@ class StringProcessor {
         blocks.add(OrProcessorBlock())
         blocks.add(NotProcessorBlock())
         blocks.add(GetValueForKeyProcessorBlock())
+        blocks.add(ArrayRandomProcessorBlock())
         blocks.add(StoreKeyValueProcessorBlock())
     }
 
