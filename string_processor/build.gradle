@@ -7,7 +7,7 @@ jar {
     baseName "string.processor"
 }
 
-version = '1.1.0'
+version = '1.1.1'
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.50"
@@ -31,7 +31,7 @@ publishing {
     publications {
         gpr(MavenPublication) {
             groupId = "org.arnoid.string.processor"
-            artifactId = 'string.processor'
+            artifactId = 'string-processor'
             version = project.version
             from(components.java)
         }

@@ -47,7 +47,7 @@ All tags start with `$` sign.
 
 #### Random Array Item
 
-* Format: `$rnd{value1|value2}`
+* Format: `$rnd{value1|value2|...|valueN}`
 * Description: tag will split its content by `|` char, pick random item evaluate it and return it.
 
 #### Set `value` for `key`
