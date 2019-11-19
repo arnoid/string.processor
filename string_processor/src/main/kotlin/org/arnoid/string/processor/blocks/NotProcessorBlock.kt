@@ -10,7 +10,7 @@ class NotProcessorBlock : AbstractProcessorBlock() {
     override fun process(inputIterator: InputIterator, stringProcessor: StringProcessor, stringProvider: StringProvider): String {
         inputIterator.skip(TAG_NOT)
 
-        return stringProcessor.process(readTagContent(inputIterator), stringProvider).toBoolean().not().toString()
+        return stringProcessor.process(readTagContent(inputIterator), stringProvider).trim().toBoolean().not().toString()
     }
 
     companion object {

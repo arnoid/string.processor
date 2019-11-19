@@ -12,7 +12,7 @@ class IfProcessorBlock : AbstractProcessorBlock() {
         val trueCaseStatement = readTagContent(inputIterator)
         val falseCaseStatement = readTagContent(inputIterator)
 
-        val statementToProcess = if (stringProcessor.process(ifCondition, stringProvider).toBoolean()) {
+        val statementToProcess = if (stringProcessor.process(ifCondition, stringProvider).trim().toBoolean()) {
             trueCaseStatement
         } else {
             falseCaseStatement

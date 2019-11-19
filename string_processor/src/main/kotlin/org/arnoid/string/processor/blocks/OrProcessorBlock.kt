@@ -10,8 +10,8 @@ class OrProcessorBlock : AbstractProcessorBlock() {
     override fun process(inputIterator: InputIterator, stringProcessor: StringProcessor, stringProvider: StringProvider): String {
         inputIterator.skip(TAG_OR)
 
-        val leftStatement = stringProcessor.process(readTagContent(inputIterator), stringProvider).toBoolean()
-        val rightStatement = stringProcessor.process(readTagContent(inputIterator), stringProvider).toBoolean()
+        val leftStatement = stringProcessor.process(readTagContent(inputIterator), stringProvider).trim().toBoolean()
+        val rightStatement = stringProcessor.process(readTagContent(inputIterator), stringProvider).trim().toBoolean()
 
         return (leftStatement || rightStatement).toString()
     }
