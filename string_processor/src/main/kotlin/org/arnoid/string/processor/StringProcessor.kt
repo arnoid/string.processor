@@ -34,7 +34,7 @@ class StringProcessor {
     fun process(input: String, stringProvider: StringProvider): String {
         val stringWriter = StringWriter()
         process(input, stringWriter, stringProvider)
-        return stringWriter.toString()
+        return stringWriter.toString().trim()
     }
 
     fun process(input: String, output: Writer, stringProvider: StringProvider) {
