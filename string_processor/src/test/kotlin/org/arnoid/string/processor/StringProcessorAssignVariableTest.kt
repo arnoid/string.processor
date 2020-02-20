@@ -45,6 +45,6 @@ class StringProcessorAssignVariableTest {
     }
 
     companion object {
-        const val INPUT_STR = "\$a:{a} $$ \$b:{b} \$c:{c}"
+        const val INPUT_STR = "\$a={a} $$ \$b={b} \$c={c}"
     }
 }

@@ -38,7 +38,7 @@ class StoreKeyValueProcessorBlock : AbstractProcessorBlock() {
 
     companion object {
         const val TAG_NAME = "STORE_VALUE_FOR_KEY"
-        const val VARIABLE_DELIMITER = ':'
+        const val VARIABLE_DELIMITER = '='
     }
 
 }

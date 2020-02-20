@@ -51,7 +51,7 @@ All tags start with `$` sign.
 * Description: tag will split its content by `|` char, pick random item evaluate it and return it.
 
 #### Set `value` for `key`
-* Format: `$key:{value}`
+* Format: `$key={value}`
 * Description: results of `value` processing will be put into `StringProcessorValueProvider.set(key, value)`.
 
 #### Get `value` for `key`
