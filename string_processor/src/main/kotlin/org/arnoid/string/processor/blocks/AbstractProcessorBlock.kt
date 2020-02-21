@@ -29,9 +29,9 @@ abstract class AbstractProcessorBlock {
             val nextChar = inputIterator.next()
 
             if (contentStart) {
-                if (nextChar == AbstractProcessorBlock.START_TAG) {
+                if (nextChar == START_TAG) {
                     level++
-                } else if (nextChar == AbstractProcessorBlock.END_TAG) {
+                } else if (nextChar == END_TAG) {
                     if (level == 0) {
                         break
                     } else {
@@ -40,7 +40,7 @@ abstract class AbstractProcessorBlock {
                 }
 
                 output.append(nextChar)
-            } else if (nextChar == AbstractProcessorBlock.START_TAG) {
+            } else if (nextChar == START_TAG) {
                 contentStart = true
             }
         }

@@ -15,7 +15,7 @@ open class DictionaryStringProvider(
         return dictionary[key] ?: emptyValue
     }
 
-    override fun set(key: String, value: String) {
+    override operator fun set(key: String, value: String) {
         dictionary[key] = value
     }
 
