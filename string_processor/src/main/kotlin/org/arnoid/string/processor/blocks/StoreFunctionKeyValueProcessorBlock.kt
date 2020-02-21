@@ -5,10 +5,18 @@ import org.arnoid.string.processor.StringProcessor
 import org.arnoid.string.processor.StringProvider
 import java.io.Writer
 
-class StoreKeyValueProcessorBlock : AbstractProcessorBlock() {
+class StoreFunctionKeyValueProcessorBlock : AbstractProcessorBlock() {
 
     override fun match(inputIterator: InputIterator): Boolean {
-        return inputIterator.lookup().isLetter()
+        val isNextLetter = inputIterator.lookup().isLetter()
+        val functionNameBodyDelimiterIndex = inputIterator.nextIndexOf(NAME_DELIMITER)
+        val functionBodyBeginIndex = inputIterator.nextIndexOf(FUNCTION_BODY_BEGIN)
+
+        val isFunctionStartDefined = functionBodyBeginIndex != -1
+
+        return isNextLetter //next is letter
+                && (functionNameBodyDelimiterIndex + 1 == functionBodyBeginIndex) //name-body delimiter is before body tag
+                && isFunctionStartDefined
     }
 
     override fun tagName(): String = TAG_NAME
@@ -26,9 +34,9 @@ class StoreKeyValueProcessorBlock : AbstractProcessorBlock() {
             }
         }
 
-        val value = stringProcessor.process(readTagContent(inputIterator), stringProvider)
+        val value = readTagContent(inputIterator)
 
-        stringProvider.set(outputBuilder.toString(), value)
+        stringProvider.set(outputBuilder.toString(), value.substring(1, value.length - 1))
     }
 
     override fun process(inputIterator: InputIterator, stringProcessor: StringProcessor, stringProvider: StringProvider): String {
@@ -37,8 +45,10 @@ class StoreKeyValueProcessorBlock : AbstractProcessorBlock() {
     }
 
     companion object {
-        const val TAG_NAME = "STORE_VALUE_FOR_KEY"
+        const val TAG_NAME = "STORE_FUNCTION_FOR_KEY"
         const val NAME_DELIMITER = '='
+        const val FUNCTION_BODY_BEGIN = "{{"
+        const val FUNCTION_BODY_END = "}}"
     }
 
 }

@@ -49,6 +49,10 @@ class InputIterator(val input: String) {
         return input.indexOf(tagVariableDelimiter, index + 1)
     }
 
+    fun nextIndexOf(tagVariableDelimiter: String): Int {
+        return input.indexOf(tagVariableDelimiter, index + 1)
+    }
+
     fun skip(char: Char) {
         skip(1)
     }

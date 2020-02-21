@@ -6,7 +6,8 @@
 StringProcessor is a tool for procedural string generation.
 
 ### Features
-* storing generated values
+* key-value storage
+* functions
 * conditional statements
 * recursive processing
 
@@ -26,7 +27,7 @@ allprojects {
 * Add the dependency
 ```
 dependencies {
-    implementation 'com.github.arnoid:string.processor:1.0.2'
+    implementation 'com.github.arnoid:string.processor:1.2.0'
 }
 ```
 
@@ -50,8 +51,12 @@ All tags start with `$` sign.
 * Format: `$rnd{value1|value2|...|valueN}`
 * Description: tag will split its content by `|` char, pick random item evaluate it and return it.
 
+#### Function
+* Format: `$funName={{value}}`
+* Description: value will be put into `StringProcessorValueProvider.set(key, value)` without processing. This will lead to behavior when function body will be evaluate whenever function will be called.
+
 #### Set `value` for `key`
-* Format: `$key:{value}`
+* Format: `$key={value}`
 * Description: results of `value` processing will be put into `StringProcessorValueProvider.set(key, value)`.
 
 #### Get `value` for `key`
@@ -109,8 +114,8 @@ All tags start with `$` sign.
 It is possible to use tags recursively. For example:
 
 ```
-$gender:{${random_gender}}
-$gender_proform: {
+$gender={${random_gender}}
+$gender_proform={
     $if {
         $eq {${gender}} {female}
     }
