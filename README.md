@@ -1,7 +1,7 @@
 # StringProcessor
 
 ## What is StringProcessor
-[![](https://jitpack.io/v/arnoid/string.processor.svg)](https://jitpack.io/#arnoid/string.processor)
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/arnoid/string.processor)
 
 StringProcessor is a tool for procedural string generation.
 
