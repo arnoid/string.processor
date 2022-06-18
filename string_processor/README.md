@@ -33,9 +33,31 @@ dependencies {
 
 ### Coding
 
+#### `StringProcessor`
+
 `StringProcessor` has following functions:
-* `init(initArray: Array<String>, stringProvider: StringProcessorValueProvider)` - this method should be used for initialization of the `StringValueValueProvider`. All strings will be processed in given sequence. It is advised to use this function to init variables. After processing of any single string returned result is disbanded.
-* `process(input: String, stringProvider: StringProcessorValueProvider): String` - this function will return result of the processing of the `input` string.
+* `init(initArray: Array<String>, stringProvider: StringProvider)` - this method should be used for initialization of the `StringProvider`. All strings will be processed in given sequence. It is advised to use this function to init variables. After processing of any single string returned result is disbanded.
+* `process(input: String, stringProvider: StringProvider): String` - this function will return result of the processing of the `input` string.
+
+#### StringProvider
+
+You can instantiate `DictionaryStringProvider` by calling a constructor:
+```kotlin
+DictionaryStringProvider(
+    dictionary = mutableMapOf<String,String>(), // optional, defaults to empty map,
+    emptyValue = "empty"  // optional, defaults to DictionaryStringProvider.DEFAULT_EMPTY_VALUE
+)
+```
+
+Alternatively, you can use factory function:
+```kotlin
+DictionaryStringProvider.from(
+    pairs = "a" to "A", // vararg pairs list 
+            "b" to "B",
+    emptyValue = "empty"// empty value, defaults to DictionaryStringProvider.DEFAULT_EMPTY_VALUE
+    
+)
+```
 
 ### Supported tags
 

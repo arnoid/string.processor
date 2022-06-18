@@ -1,7 +1,7 @@
 package org.arnoid.string.processor
 
 open class DictionaryStringProvider(
-    private val dictionary: MutableMap<String, String> = HashMap(),
+    private val dictionary: MutableMap<String, String> = mutableMapOf(),
     private val emptyValue: String = DEFAULT_EMPTY_VALUE
 ) : StringProvider {
 
