@@ -1,13 +1,15 @@
-package org.arnoid.string.processor
+package org.arnoid.string.processor.blocks
 
 import com.nhaarman.mockitokotlin2.doThrow
 import com.nhaarman.mockitokotlin2.mock
 import junit.framework.TestCase.assertEquals
+import org.arnoid.string.processor.StringProcessor
+import org.arnoid.string.processor.StringProvider
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers
 
-class StringProcessorNotTest {
+class EqTest {
 
     lateinit var stringProcessor: StringProcessor
     lateinit var stringProviderMock: StringProvider
@@ -21,12 +23,12 @@ class StringProcessorNotTest {
     }
 
     @Test
-    fun testTagNot() {
+    fun testTagEq() {
         assertEquals(RESULT_STR, stringProcessor.process(INPUT_STR, stringProviderMock))
     }
 
     companion object {
-        const val INPUT_STR = "\$not{true} $$ \$not{false} $$ \$not{10} $$ \$not{a}"
-        const val RESULT_STR = "false \$ true \$ true \$ true"
+        const val INPUT_STR = "\$eq{a}{a} $$ \$eq{a}{b}"
+        const val RESULT_STR = "true \$ false"
     }
 }

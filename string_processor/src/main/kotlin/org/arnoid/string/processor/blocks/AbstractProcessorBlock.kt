@@ -13,11 +13,20 @@ abstract class AbstractProcessorBlock {
 
     abstract fun tagName(): String
 
-    open fun process(output: Writer, inputIterator: InputIterator, stringProcessor: StringProcessor, stringProvider: StringProvider) {
+    open fun process(
+        output: Writer,
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
+    ) {
         output.append(process(inputIterator, stringProcessor, stringProvider))
     }
 
-    abstract fun process(inputIterator: InputIterator, stringProcessor: StringProcessor, stringProvider: StringProvider): String
+    abstract fun process(
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
+    ): String
 
     protected fun readTagContent(inputIterator: InputIterator): String {
         val output = StringBuilder()

@@ -1,4 +1,4 @@
-package org.arnoid.string.processor
+package org.arnoid.string.processor.blocks
 
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.eq
@@ -6,11 +6,13 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
+import org.arnoid.string.processor.StringProcessor
+import org.arnoid.string.processor.StringProvider
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyString
 
-class StringProcessorArrayRandomTest {
+class ArrayRandomTest {
 
     lateinit var stringProcessor: StringProcessor
     lateinit var stringProviderMock: StringProvider
@@ -27,10 +29,12 @@ class StringProcessorArrayRandomTest {
     @Test
     fun testTagRnd() {
         val processResult = stringProcessor.process("\$rnd{a|b|c|d}", stringProviderMock)
-        assertTrue(processResult == "a" ||
-                processResult == "b" ||
-                processResult == "c" ||
-                processResult == "d")
+        assertTrue(
+            processResult == "a" ||
+                    processResult == "b" ||
+                    processResult == "c" ||
+                    processResult == "d"
+        )
     }
 
     @Test
@@ -48,8 +52,7 @@ class StringProcessorArrayRandomTest {
     @Test
     fun testTagRndDeep() {
         val processResult = stringProcessor.process("\$rnd{\${a}|\${b}}", stringProviderMock)
-        assertTrue(processResult == "A" ||
-                processResult == "B")
+        assertTrue(processResult == "A" || processResult == "B")
 
         verify(stringProviderMock).get(anyString())
     }

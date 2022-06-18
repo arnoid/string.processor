@@ -7,7 +7,11 @@ import org.arnoid.string.processor.StringProvider
 class GeqProcessorBlock : AbstractProcessorBlock() {
     override fun tagName(): String = TAG_GEQ
 
-    override fun process(inputIterator: InputIterator, stringProcessor: StringProcessor, stringProvider: StringProvider): String {
+    override fun process(
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
+    ): String {
         inputIterator.skip(TAG_GEQ)
 
         val leftStatement = stringProcessor.process(readTagContent(inputIterator), stringProvider).toIntOrNull()

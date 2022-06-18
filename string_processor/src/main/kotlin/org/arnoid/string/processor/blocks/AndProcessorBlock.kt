@@ -7,7 +7,11 @@ import org.arnoid.string.processor.StringProvider
 class AndProcessorBlock : AbstractProcessorBlock() {
     override fun tagName(): String = TAG_AND
 
-    override fun process(inputIterator: InputIterator, stringProcessor: StringProcessor, stringProvider: StringProvider): String {
+    override fun process(
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
+    ): String {
         inputIterator.skip(TAG_AND)
 
         val leftStatement = stringProcessor.process(readTagContent(inputIterator), stringProvider).toBoolean()

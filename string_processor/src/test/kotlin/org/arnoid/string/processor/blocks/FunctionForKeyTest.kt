@@ -1,14 +1,17 @@
-package org.arnoid.string.processor
+package org.arnoid.string.processor.blocks
 
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import junit.framework.TestCase.assertEquals
+import org.arnoid.string.processor.DictionaryStringProvider
+import org.arnoid.string.processor.StringProcessor
+import org.arnoid.string.processor.StringProvider
 import org.junit.Before
 import org.junit.Test
 
-class StringProcessorFunctionForKeyTest {
+class FunctionForKeyTest {
 
     lateinit var stringProcessor: StringProcessor
     lateinit var stringProviderMock: StringProvider

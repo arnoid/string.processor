@@ -7,7 +7,11 @@ import org.arnoid.string.processor.StringProvider
 class IfProcessorBlock : AbstractProcessorBlock() {
     override fun tagName(): String = TAG_IF
 
-    override fun process(inputIterator: InputIterator, stringProcessor: StringProcessor, stringProvider: StringProvider): String {
+    override fun process(
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
+    ): String {
         val ifCondition = readTagContent(inputIterator)
         val trueCaseStatement = readTagContent(inputIterator)
         val falseCaseStatement = readTagContent(inputIterator)
