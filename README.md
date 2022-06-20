@@ -6,7 +6,8 @@
 StringProcessor is a tool for procedural string generation.
 
 ### Features
-* storing generated values
+* key-value storage
+* functions
 * conditional statements
 * recursive processing
 
@@ -15,21 +16,30 @@ StringProcessor is a tool for procedural string generation.
 ### Gradle
 
 * Add the JitPack repository to your build file
+```groovy
+repositories {
+    maven { url 'https://jitpack.io' }
+}
 ```
-allprojects {
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
+Alternatively Github Packages
+```groovy
+repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/arnoid/string.processor")
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+            password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+        }
     }
 }
 ```
 * Add the dependency
-```
+```groovy
 dependencies {
-    implementation 'com.github.arnoid:string.processor:1.x.x'
+    implementation 'com.github.arnoid:string.processor:x.x.x'
 }
 ```
 
 ### Using
 
-* `StringProcessor` check [(documentation)](string_processor/README.md):
+* Check [documentation](string_processor/README.md):
