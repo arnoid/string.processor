@@ -9,6 +9,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers
 
+//TODO: Old IF tag implementation test. Should be removed?
 class IfTagTest {
 
     lateinit var stringProcessor: StringProcessor
@@ -32,17 +33,13 @@ class IfTagTest {
         const val INPUT_STR_TRUE = "\$if{true} " +
                 "" +
                 "" +
-                "{b} " +
-                "" +
-                "{c}"
+                "{b} "
         const val RESULT_STR_TRUE = "b"
 
         const val INPUT_STR_FALSE = "\$if{false} " +
                 "" +
                 "" +
-                "{b} " +
-                "" +
-                "{c}"
-        const val RESULT_STR_FALSE = "c"
+                "{b} "
+        const val RESULT_STR_FALSE = ""
     }
 }

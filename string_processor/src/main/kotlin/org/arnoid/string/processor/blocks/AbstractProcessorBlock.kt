@@ -28,6 +28,27 @@ abstract class AbstractProcessorBlock {
         stringProvider: StringProvider
     ): String
 
+    protected fun readTagContent(
+        inputIterator: InputIterator,
+        tagName: String
+    ): String {
+        return readTagContentIf(inputIterator) { inputIterator: InputIterator -> inputIterator.lookup(tagName) }
+    }
+
+    /**
+     * Will read content of [InputIterator] after next [START_TAG] until next [END_TAG] ending after [END_TAG].
+     */
+    protected fun readTagContentIf(
+        inputIterator: InputIterator,
+        precondition: (inputIterator: InputIterator) -> Boolean
+    ): String {
+        return if (precondition.invoke(inputIterator)) {
+            readTagContent(inputIterator)
+        } else {
+            ""
+        }
+    }
+
     protected fun readTagContent(inputIterator: InputIterator): String {
         val output = StringBuilder()
 

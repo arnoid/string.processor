@@ -5,32 +5,26 @@ import java.io.StringWriter
 import java.io.Writer
 import java.util.*
 
-class StringProcessor {
-    val blocks = LinkedList<AbstractProcessorBlock>()
-
-    init {
-        blocks.add(EscapeProcessorBlock())
-        blocks.add(IfProcessorBlock())
-        blocks.add(EqProcessorBlock())
-        blocks.add(NeqProcessorBlock())
-        blocks.add(GtProcessorBlock())
-        blocks.add(LtProcessorBlock())
-        blocks.add(GeqProcessorBlock())
-        blocks.add(LeqProcessorBlock())
-        blocks.add(AndProcessorBlock())
-        blocks.add(OrProcessorBlock())
-        blocks.add(NotProcessorBlock())
-        blocks.add(GetValueForKeyProcessorBlock())
-        blocks.add(ArrayRandomProcessorBlock())
-        blocks.add(StoreFunctionKeyValueProcessorBlock())
-        blocks.add(StoreKeyValueProcessorBlock())
-    }
-
-    fun init(initArray: Array<String>, stringProvider: StringProvider) {
-        for (initItem in initArray) {
-            process(initItem, stringProvider)
-        }
-    }
+class StringProcessor(
+    private val blocks: List<AbstractProcessorBlock> = listOf(
+        EscapeProcessorBlock(),
+        WhenProcessorBlock(),
+        IfElseProcessorBlock(),
+        EqProcessorBlock(),
+        NeqProcessorBlock(),
+        GtProcessorBlock(),
+        LtProcessorBlock(),
+        GeqProcessorBlock(),
+        LeqProcessorBlock(),
+        AndProcessorBlock(),
+        OrProcessorBlock(),
+        NotProcessorBlock(),
+        GetValueForKeyProcessorBlock(),
+        ArrayRandomProcessorBlock(),
+        StoreFunctionKeyValueProcessorBlock(),
+        StoreKeyValueProcessorBlock(),
+    )
+) {
 
     fun process(input: String, stringProvider: StringProvider): String {
         val stringWriter = StringWriter()

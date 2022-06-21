@@ -70,7 +70,7 @@ All tags start with `$` sign.
       $function2={{${function1}}}
       ${function2}
       ```
-    * Result: No output.
+    * Result: 
       ```text
       abcd
       ```
@@ -96,34 +96,99 @@ All tags start with `$` sign.
       $key={abcd}
       ${key}
       ```
-    * Result: No output.
+    * Result: 
       ```text
       abcd
       ```
 
 ### IF tag
-* Format: `$if{if_condition}{left_expression}{right_expression}`
+* :no_entry: tag was modified in `1.3`
+* Format: 
+  * ```
+    $if{if_condition}{statement}
+    ```
+  * ```
+    $if{if_condition}{statement}
+    $else{else_statement}
+    ```
+  * ```
+    $if{if_condition}{statement}
+    $elseIf{if_condition}{else_if_statement}
+    $else{else_statement}
+    ```
+  * `$else` is optional
 * Description: processor will do following steps:
-    1. read `if_condition`
-    2. read `left_expression`
-    3. read `right_expression`
-    4. processor will evaluate `if_condition`. Evaluation result will be equal `true` if evaluation result will be a word `true` ignoring case and `false` otherwise.
-        1. if `if_condition` evaluation result is `true` then `left_expression` will be processed and injected into result 
-        2. if `if_condition` evaluation result is `false` then `right_expression` will be processed and injected into result
-* Example:
+    1. read initial `$if` tag
+       1. read `if_condition`
+       2. read `statement`
+    2. for each `$elseif` tag repeat step 1
+    3. read `$else` `statement`
+    4. iterate over collected pairs of `if_condition` and `statement`
+       1. if pair `if_condition` evaluation result is `true` then this pair `statement` will be processed and returned as result
+       2. if pair `if_condition` evaluation result is `false` then iterate to next pair
+    5. if no `if_condition`s were evaluated as `true`, then `$else` statement will be evaluated and returned as result
+* Example - regular `if`:
     * Template:
       ```text
-      $if{true}{left}{right}
+      $if{true}{if_statement}
       ```
-      also possible format
+    * Result:
       ```text
-      $if{true}
-      {left}
-      {right}
+      if_statement
       ```
-    * Result: No output.
+* Example - `if-else`:
+  * Template:
+    ```text
+    $if{false}{if_statement}
+    $else{else_statement}
+    ```
+  * Result:
+    ```text
+    else_statement
+    ```
+* Example - `if-elseif-else`:
+    * Template:
       ```text
-      left
+      $if{false}{if_statement}
+      $elseif{true}{elseif_statement}
+      $else{else_statement}
+      ```
+    * Result:
+      ```text
+      elseif_statement
+      ```
+
+### WHEN tag
+* Format:
+    ```
+    $when{when_value_statement}
+    $case{case_value_condition}{case_statement}
+    $else{else_statement}
+    ```
+  `$else` is optional
+* Description: processor will do following steps:
+    1. read initial `$when` tag `when_value_statement`
+    2. for each `$case` tag
+       1. read `case_value_condition`
+       2. read `case_statement`
+    3. read `$else` `statement`
+    4. evaluate `when_value_statement` statement
+    5. iterate over collected pairs of `casecase_value_condition` and `case_statement`
+        1. if pair `casecase_value_condition` evaluation result equals to result from step 4 then `case_statement` will be evaluated and returned as result
+        2. if pair `casecase_value_condition` evaluation result not equals to  from step 4 then iterate to next pair
+    6. if no `case`s evaluation results were equal to `when_value_statement` evaluation result , then `$else` statement will be evaluated and returned as result
+* Example
+    * Template:
+      ```text
+      $when{1}
+      $case{0}{value_0}
+      $case{1}{value_1}
+      $case{2}{value_2}
+      $else{else_value}
+      ```
+    * Result:
+      ```text
+      value_1
       ```
 
 ### EQ tag
@@ -134,7 +199,7 @@ All tags start with `$` sign.
       ```text
       $eq{abcd}{abcd}
       ```
-    * Result: No output.
+    * Result:
       ```text
       true
       ```
@@ -147,7 +212,7 @@ All tags start with `$` sign.
       ```text
       $neq{abcd}{abcd}
       ```
-    * Result: No output.
+    * Result: 
       ```text
       false
       ```
@@ -161,7 +226,7 @@ All tags start with `$` sign.
       ```text
       $and{true}{false}
       ```
-    * Result: No output.
+    * Result: 
       ```text
       false
       ```
@@ -175,7 +240,7 @@ All tags start with `$` sign.
       ```text
       $or{true}{false}
       ```
-    * Result: No output.
+    * Result: 
       ```text
       true
       ```
@@ -189,7 +254,7 @@ All tags start with `$` sign.
       ```text
       $gt{2}{1}
       ```
-    * Result: No output.
+    * Result: 
       ```text
       true
       ```
@@ -203,7 +268,7 @@ All tags start with `$` sign.
       ```text
       $lt{2}{1}
       ```
-    * Result: No output.
+    * Result: 
       ```text
       false
       ```
@@ -217,7 +282,7 @@ All tags start with `$` sign.
       ```text
       $geq{2}{1}
       ```
-    * Result: No output.
+    * Result: 
       ```text
       true
       ```
@@ -231,7 +296,7 @@ All tags start with `$` sign.
       ```text
       $leq{2}{1}
       ```
-    * Result: No output.
+    * Result: 
       ```text
       true
       ```
