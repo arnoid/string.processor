@@ -7,10 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### [2.0.0]
-#### Addded
+#### Added
 * Case manipulation tags. See documentation for details
   * `$upper{}`
   * `$lower{}`
+* Comment processing tag `$#{}`. Content inside the tag is ignored.
 
 ## [1.3.0] - 2022-06-21
 ### Added

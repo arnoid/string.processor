@@ -14,7 +14,8 @@ class StringProcessor(
     /**
      * Processor blocks that will be used to process input.
      *
-     * Sequence of blocks is important, as processing attempts are done in order provided by list.
+     * Sequence of blocks is important, as processing attempts are done in order provided by
+     * list.
      */
     private val blocks: List<AbstractProcessorBlock> =
         listOf(
@@ -32,6 +33,7 @@ class StringProcessor(
             NotProcessorBlock(),
             UpperProcessorBlock(),
             LowerProcessorBlock(),
+            CommentProcessorBlock(),
             GetValueForKeyProcessorBlock(),
             ArrayRandomProcessorBlock(),
             StoreFunctionKeyValueProcessorBlock(),

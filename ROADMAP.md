@@ -11,7 +11,7 @@ This document outlines proposed improvements and new features for the `string.pr
 *   [ ] **Enhanced Error Handling**: Introduce specific exceptions like `MalformedTagException` for cases like unclosed braces or invalid syntax, rather than failing silently or returning empty strings.
 *   [ ] **Boolean Evaluation Refinement**: Improve `IfElseProcessorBlock` logic to support "truthy" values (non-empty strings, non-zero numbers) instead of strictly relying on `String.toBoolean()`.
 *   [ ] **Block Matching Optimization**: Transition from linear block iteration in `StringProcessor` to a Map-based lookup or trie for faster tag matching.
-*   [x] **KDoc Documentation**: Add comprehensive KDoc comments to all classes and methods to document the DSL syntax and internal API.
+*   [X] **KDoc Documentation**: Add comprehensive KDoc comments to all classes and methods to document the DSL syntax and internal API.
 
 ### 2. Parser Enhancements
 *   [ ] **Advanced Iterator**: Upgrade `InputIterator` to support `peek()`, `mark()`, and `reset()`. This will simplify the implementation of complex multi-character tags.
@@ -36,7 +36,7 @@ This document outlines proposed improvements and new features for the `string.pr
     *   `$calc{expression}` or functional tags like `$add{v1}{v2}`, `$sub{v1}{v2}`.
 *   [ ] **Date & Time**:
     *   `$now{format}`: Print the current timestamp in a specific format.
-*   [ ] **Comments**:
+*   [X] **Comments**:
     *   `$#{ comment content }`: A block that is completely ignored during processing.
 
 ### 3. Integration & Tooling

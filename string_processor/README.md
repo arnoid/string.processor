@@ -314,9 +314,9 @@ All tags start with `$` sign.
     SOME TEXT
     ```
 
-### UPPER tag
-* Format: `$upper{expression}`
-* Description: this will change the string case to upper case.
+### LOWER tag
+* Format: `$lower{expression}`
+* Description: this will change the string case to lower case.
 * Example:
   * Template:
     ```text
@@ -325,6 +325,19 @@ All tags start with `$` sign.
   * Result
     ```text
     some text
+    ```
+
+### Comment tag
+* Format: `$#{comment_content}`
+* Description: this tag is used to add comments that will be ignored during processing.
+* Example:
+  * Template:
+    ```text
+    Hello$#{ some comment } World
+    ```
+  * Result:
+    ```text
+    Hello World
     ```
       
 ## Nesting and Recursion
