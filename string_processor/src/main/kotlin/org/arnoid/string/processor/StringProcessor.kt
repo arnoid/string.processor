@@ -30,6 +30,8 @@ class StringProcessor(
             AndProcessorBlock(),
             OrProcessorBlock(),
             NotProcessorBlock(),
+            UpperProcessorBlock(),
+            LowerProcessorBlock(),
             GetValueForKeyProcessorBlock(),
             ArrayRandomProcessorBlock(),
             StoreFunctionKeyValueProcessorBlock(),
@@ -45,9 +47,11 @@ class StringProcessor(
      * @param stringProvider The provider for variable resolution and storage.
      * @return The processed and trimmed string.
      */
-    fun process(input: String, stringProvider: StringProvider): String = with(StringWriter()) {
-        process(input, this, stringProvider)
-    }.toString().trim()
+    fun process(input: String, stringProvider: StringProvider): String {
+        val stringWriter = StringWriter()
+        process(input, stringWriter, stringProvider)
+        return stringWriter.toString().trim()
+    }
 
     /**
      * Processes the [input] string and writes the output to the [output] Writer.
