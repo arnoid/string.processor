@@ -4,18 +4,25 @@ import org.arnoid.string.processor.InputIterator
 import org.arnoid.string.processor.StringProcessor
 import org.arnoid.string.processor.StringProvider
 
+/**
+ * Logical OR processor block. Usage: `$or{condition1}{condition2}` Returns "true" if at least one
+ * condition evaluates to true, otherwise "false".
+ */
 class OrProcessorBlock : AbstractProcessorBlock() {
+
     override fun tagName(): String = TAG_OR
 
     override fun process(
-        inputIterator: InputIterator,
-        stringProcessor: StringProcessor,
-        stringProvider: StringProvider
+            inputIterator: InputIterator,
+            stringProcessor: StringProcessor,
+            stringProvider: StringProvider
     ): String {
         inputIterator.skip(TAG_OR)
 
-        val leftStatement = stringProcessor.process(readTagContent(inputIterator), stringProvider).toBoolean()
-        val rightStatement = stringProcessor.process(readTagContent(inputIterator), stringProvider).toBoolean()
+        val leftStatement =
+                stringProcessor.process(readTagContent(inputIterator), stringProvider).toBoolean()
+        val rightStatement =
+                stringProcessor.process(readTagContent(inputIterator), stringProvider).toBoolean()
 
         return (leftStatement || rightStatement).toString()
     }

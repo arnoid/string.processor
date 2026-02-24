@@ -1,46 +1,61 @@
 package org.arnoid.string.processor.blocks
 
+import java.io.Writer
 import org.arnoid.string.processor.InputIterator
 import org.arnoid.string.processor.StringProcessor
 import org.arnoid.string.processor.StringProvider
-import java.io.Writer
 
+/**
+ * Base class for all processor blocks in the template engine. A processor block is responsible for
+ * identifying its tag in the input and processing its content.
+ *
+ * All tags start with a control character [CHAR_CONTROL] and are usually followed by a tag name and
+ * content enclosed in [START_TAG] and [END_TAG].
+ */
 abstract class AbstractProcessorBlock {
 
+    /**
+     * Checks if this block matches the current position in the [inputIterator].
+     * @return True if the block should process the current input.
+     */
     open fun match(inputIterator: InputIterator): Boolean {
         return inputIterator.lookup(tagName())
     }
 
+    /** Returns the name of the tag this block handles (without the control character). */
     abstract fun tagName(): String
 
+    /** Processes the block's logic and appends the result to the [output] writer. */
     open fun process(
-        output: Writer,
-        inputIterator: InputIterator,
-        stringProcessor: StringProcessor,
-        stringProvider: StringProvider
+            output: Writer,
+            inputIterator: InputIterator,
+            stringProcessor: StringProcessor,
+            stringProvider: StringProvider
     ) {
         output.append(process(inputIterator, stringProcessor, stringProvider))
     }
 
+    /** Processes the block's logic and returns the result as a string. */
     abstract fun process(
-        inputIterator: InputIterator,
-        stringProcessor: StringProcessor,
-        stringProvider: StringProvider
+            inputIterator: InputIterator,
+            stringProcessor: StringProcessor,
+            stringProvider: StringProvider
     ): String
 
-    protected fun readTagContent(
-        inputIterator: InputIterator,
-        tagName: String
-    ): String {
-        return readTagContentIf(inputIterator) { inputIterator: InputIterator -> inputIterator.lookup(tagName) }
+    /** Reads the content of a tag if it matches the [tagName]. */
+    protected fun readTagContent(inputIterator: InputIterator, tagName: String): String {
+        return readTagContentIf(inputIterator) { inputIterator: InputIterator ->
+            inputIterator.lookup(tagName)
+        }
     }
 
     /**
-     * Will read content of [InputIterator] after next [START_TAG] until next [END_TAG] ending after [END_TAG].
+     * Will read content of [InputIterator] after next [START_TAG] until next [END_TAG] ending after
+     * [END_TAG] if [precondition] is met.
      */
     protected fun readTagContentIf(
-        inputIterator: InputIterator,
-        precondition: (inputIterator: InputIterator) -> Boolean
+            inputIterator: InputIterator,
+            precondition: (inputIterator: InputIterator) -> Boolean
     ): String {
         return if (precondition.invoke(inputIterator)) {
             readTagContent(inputIterator)
@@ -49,6 +64,10 @@ abstract class AbstractProcessorBlock {
         }
     }
 
+    /**
+     * Reads everything from the next [START_TAG] to the corresponding [END_TAG], handling nested
+     * tags.
+     */
     protected fun readTagContent(inputIterator: InputIterator): String {
         val output = StringBuilder()
 
@@ -79,9 +98,13 @@ abstract class AbstractProcessorBlock {
     }
 
     companion object {
+        /** The character that triggers tag processing. Default is '$'. */
         const val CHAR_CONTROL = '$'
 
+        /** The character that marks the start of a tag's content. Default is '{'. */
         const val START_TAG = '{'
+
+        /** The character that marks the end of a tag's content. Default is '}'. */
         const val END_TAG = '}'
     }
 }

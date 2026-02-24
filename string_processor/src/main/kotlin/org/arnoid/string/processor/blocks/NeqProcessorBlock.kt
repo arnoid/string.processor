@@ -4,13 +4,18 @@ import org.arnoid.string.processor.InputIterator
 import org.arnoid.string.processor.StringProcessor
 import org.arnoid.string.processor.StringProvider
 
+/**
+ * Inequality comparison processor block. Usage: `$neq{value1}{value2}` Returns "true" if the
+ * strings are NOT equal, otherwise "false".
+ */
 class NeqProcessorBlock : AbstractProcessorBlock() {
+
     override fun tagName(): String = TAG_NEQ
 
     override fun process(
-        inputIterator: InputIterator,
-        stringProcessor: StringProcessor,
-        stringProvider: StringProvider
+            inputIterator: InputIterator,
+            stringProcessor: StringProcessor,
+            stringProvider: StringProvider
     ): String {
         inputIterator.skip(TAG_NEQ)
 

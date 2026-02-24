@@ -4,13 +4,18 @@ import org.arnoid.string.processor.InputIterator
 import org.arnoid.string.processor.StringProcessor
 import org.arnoid.string.processor.StringProvider
 
+/**
+ * Escape processor block. Usage: `$$` Returns the control character itself ('$'), allowing it to be
+ * printed in the output.
+ */
 class EscapeProcessorBlock : AbstractProcessorBlock() {
+
     override fun tagName(): String = TAG_ESCAPE
 
     override fun process(
-        inputIterator: InputIterator,
-        stringProcessor: StringProcessor,
-        stringProvider: StringProvider
+            inputIterator: InputIterator,
+            stringProcessor: StringProcessor,
+            stringProvider: StringProvider
     ): String {
         inputIterator.skip(TAG_ESCAPE)
 

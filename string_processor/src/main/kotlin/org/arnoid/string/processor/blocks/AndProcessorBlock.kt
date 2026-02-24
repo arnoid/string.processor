@@ -4,13 +4,18 @@ import org.arnoid.string.processor.InputIterator
 import org.arnoid.string.processor.StringProcessor
 import org.arnoid.string.processor.StringProvider
 
+/**
+ * logical AND processor block. Usage: `$and{condition1}{condition2}` Returns "true" if both
+ * conditions evaluate to true, otherwise "false".
+ */
 class AndProcessorBlock : AbstractProcessorBlock() {
+
     override fun tagName(): String = TAG_AND
 
     override fun process(
-        inputIterator: InputIterator,
-        stringProcessor: StringProcessor,
-        stringProvider: StringProvider
+            inputIterator: InputIterator,
+            stringProcessor: StringProcessor,
+            stringProvider: StringProvider
     ): String {
         inputIterator.skip(TAG_AND)
 

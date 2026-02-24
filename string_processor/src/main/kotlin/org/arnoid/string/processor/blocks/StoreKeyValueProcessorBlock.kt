@@ -1,10 +1,14 @@
 package org.arnoid.string.processor.blocks
 
+import java.io.Writer
 import org.arnoid.string.processor.InputIterator
 import org.arnoid.string.processor.StringProcessor
 import org.arnoid.string.processor.StringProvider
-import java.io.Writer
 
+/**
+ * Variable assignment processor block. Usage: `$varName={value}` Stores the processed [value] in
+ * the [StringProvider] under [varName].
+ */
 class StoreKeyValueProcessorBlock : AbstractProcessorBlock() {
 
     override fun match(inputIterator: InputIterator): Boolean {
@@ -14,10 +18,10 @@ class StoreKeyValueProcessorBlock : AbstractProcessorBlock() {
     override fun tagName(): String = TAG_NAME
 
     override fun process(
-        output: Writer,
-        inputIterator: InputIterator,
-        stringProcessor: StringProcessor,
-        stringProvider: StringProvider
+            output: Writer,
+            inputIterator: InputIterator,
+            stringProcessor: StringProcessor,
+            stringProvider: StringProvider
     ) {
         val outputBuilder = StringBuilder()
 
@@ -37,11 +41,11 @@ class StoreKeyValueProcessorBlock : AbstractProcessorBlock() {
     }
 
     override fun process(
-        inputIterator: InputIterator,
-        stringProcessor: StringProcessor,
-        stringProvider: StringProvider
+            inputIterator: InputIterator,
+            stringProcessor: StringProcessor,
+            stringProvider: StringProvider
     ): String {
-        //not used
+        // not used
         return ""
     }
 
@@ -49,5 +53,4 @@ class StoreKeyValueProcessorBlock : AbstractProcessorBlock() {
         const val TAG_NAME = "STORE_VALUE_FOR_KEY"
         const val NAME_DELIMITER = '='
     }
-
 }

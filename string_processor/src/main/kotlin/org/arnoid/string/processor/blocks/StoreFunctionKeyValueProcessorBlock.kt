@@ -1,10 +1,15 @@
 package org.arnoid.string.processor.blocks
 
+import java.io.Writer
 import org.arnoid.string.processor.InputIterator
 import org.arnoid.string.processor.StringProcessor
 import org.arnoid.string.processor.StringProvider
-import java.io.Writer
 
+/**
+ * Lazy-evaluated function storage processor block. Usage: `$funcName={{value}}` Stores a template
+ * fragment [value] in the [StringProvider]. The value is processed every time it is retrieved,
+ * allowing for dynamic behavior.
+ */
 class StoreFunctionKeyValueProcessorBlock : AbstractProcessorBlock() {
 
     override fun match(inputIterator: InputIterator): Boolean {
@@ -14,18 +19,21 @@ class StoreFunctionKeyValueProcessorBlock : AbstractProcessorBlock() {
 
         val isFunctionStartDefined = functionBodyBeginIndex != -1
 
-        return isNextLetter //next is letter
-                && (functionNameBodyDelimiterIndex + 1 == functionBodyBeginIndex) //name-body delimiter is before body tag
-                && isFunctionStartDefined
+        return isNextLetter // next is letter
+        &&
+                (functionNameBodyDelimiterIndex + 1 ==
+                        functionBodyBeginIndex) // name-body delimiter is before body tag
+                &&
+                isFunctionStartDefined
     }
 
     override fun tagName(): String = TAG_NAME
 
     override fun process(
-        output: Writer,
-        inputIterator: InputIterator,
-        stringProcessor: StringProcessor,
-        stringProvider: StringProvider
+            output: Writer,
+            inputIterator: InputIterator,
+            stringProcessor: StringProcessor,
+            stringProvider: StringProvider
     ) {
         val outputBuilder = StringBuilder()
 
@@ -45,11 +53,11 @@ class StoreFunctionKeyValueProcessorBlock : AbstractProcessorBlock() {
     }
 
     override fun process(
-        inputIterator: InputIterator,
-        stringProcessor: StringProcessor,
-        stringProvider: StringProvider
+            inputIterator: InputIterator,
+            stringProcessor: StringProcessor,
+            stringProvider: StringProvider
     ): String {
-        //not used
+        // not used
         return ""
     }
 
@@ -59,5 +67,4 @@ class StoreFunctionKeyValueProcessorBlock : AbstractProcessorBlock() {
         const val FUNCTION_BODY_BEGIN = "{{"
         const val FUNCTION_BODY_END = "}}"
     }
-
 }
