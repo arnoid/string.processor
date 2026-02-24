@@ -13,9 +13,9 @@ class WhenProcessorBlock : AbstractProcessorBlock() {
     override fun tagName(): String = TAG_WHEN
 
     override fun process(
-            inputIterator: InputIterator,
-            stringProcessor: StringProcessor,
-            stringProvider: StringProvider
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
     ): String {
 
         val whenValueStatement = readTagContent(inputIterator)
@@ -24,19 +24,19 @@ class WhenProcessorBlock : AbstractProcessorBlock() {
 
         // first `if` condition and statement
         caseConditionsToStatements.add(
-                readTagContent(inputIterator) to readTagContent(inputIterator)
+            readTagContent(inputIterator) to readTagContent(inputIterator)
         )
 
-        val caseConditionTAg = "$CHAR_CONTROL$TAG_CASE"
+        val caseConditionTAg = "$CONTROL_CHAR$TAG_CASE"
         while (inputIterator.lookup(caseConditionTAg)) {
             // add more elseif
             inputIterator.skip(caseConditionTAg)
             caseConditionsToStatements.add(
-                    readTagContent(inputIterator) to readTagContent(inputIterator)
+                readTagContent(inputIterator) to readTagContent(inputIterator)
             )
         }
 
-        val elseStatement = readTagContent(inputIterator, "$CHAR_CONTROL$TAG_ELSE")
+        val elseStatement = readTagContent(inputIterator, "$CONTROL_CHAR$TAG_ELSE")
 
         val whenValueEvaluationResult = stringProcessor.process(whenValueStatement, stringProvider)
 

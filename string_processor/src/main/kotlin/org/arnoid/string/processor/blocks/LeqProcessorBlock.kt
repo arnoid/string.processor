@@ -13,16 +13,14 @@ class LeqProcessorBlock : AbstractProcessorBlock() {
     override fun tagName(): String = TAG_LEQ
 
     override fun process(
-            inputIterator: InputIterator,
-            stringProcessor: StringProcessor,
-            stringProvider: StringProvider
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
     ): String {
         inputIterator.skip(TAG_LEQ)
 
-        val leftStatement =
-                stringProcessor.process(readTagContent(inputIterator), stringProvider).toIntOrNull()
-        val rightStatement =
-                stringProcessor.process(readTagContent(inputIterator), stringProvider).toIntOrNull()
+        val leftStatement = stringProcessor.process(readTagContent(inputIterator), stringProvider).toIntOrNull()
+        val rightStatement = stringProcessor.process(readTagContent(inputIterator), stringProvider).toIntOrNull()
 
         return if (leftStatement != null && rightStatement != null) {
             (leftStatement <= rightStatement).toString()

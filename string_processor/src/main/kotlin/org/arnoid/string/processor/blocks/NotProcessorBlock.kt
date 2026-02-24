@@ -13,17 +13,17 @@ class NotProcessorBlock : AbstractProcessorBlock() {
     override fun tagName(): String = TAG_NOT
 
     override fun process(
-            inputIterator: InputIterator,
-            stringProcessor: StringProcessor,
-            stringProvider: StringProvider
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
     ): String {
         inputIterator.skip(TAG_NOT)
 
         return stringProcessor
-                .process(readTagContent(inputIterator), stringProvider)
-                .toBoolean()
-                .not()
-                .toString()
+            .process(readTagContent(inputIterator), stringProvider)
+            .toBoolean()
+            .not()
+            .toString()
     }
 
     companion object {

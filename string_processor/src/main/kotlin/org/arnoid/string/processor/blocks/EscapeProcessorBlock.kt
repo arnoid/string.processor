@@ -13,9 +13,9 @@ class EscapeProcessorBlock : AbstractProcessorBlock() {
     override fun tagName(): String = TAG_ESCAPE
 
     override fun process(
-            inputIterator: InputIterator,
-            stringProcessor: StringProcessor,
-            stringProvider: StringProvider
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
     ): String {
         inputIterator.skip(TAG_ESCAPE)
 

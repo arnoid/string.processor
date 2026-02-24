@@ -13,9 +13,9 @@ class NeqProcessorBlock : AbstractProcessorBlock() {
     override fun tagName(): String = TAG_NEQ
 
     override fun process(
-            inputIterator: InputIterator,
-            stringProcessor: StringProcessor,
-            stringProvider: StringProvider
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
     ): String {
         inputIterator.skip(TAG_NEQ)
 

@@ -22,7 +22,7 @@ class IfElseProcessorBlock : AbstractProcessorBlock() {
         // first `if` condition and statement
         ifConditionsToStatements.add(readTagContent(inputIterator) to readTagContent(inputIterator))
 
-        val elseIf = "$CHAR_CONTROL$TAG_ELSE_IF"
+        val elseIf = "$CONTROL_CHAR$TAG_ELSE_IF"
         while (inputIterator.lookup(elseIf)) {
             // add more elseif
             inputIterator.skip(elseIf)
@@ -31,7 +31,7 @@ class IfElseProcessorBlock : AbstractProcessorBlock() {
             )
         }
 
-        val elseStatement = readTagContent(inputIterator, "$CHAR_CONTROL$TAG_ELSE")
+        val elseStatement = readTagContent(inputIterator, "$CONTROL_CHAR$TAG_ELSE")
 
         for (ifConditionToStatementPair in ifConditionsToStatements) {
             if (stringProcessor

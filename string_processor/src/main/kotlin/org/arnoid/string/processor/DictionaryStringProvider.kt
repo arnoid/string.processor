@@ -8,8 +8,8 @@ package org.arnoid.string.processor
  * [DEFAULT_EMPTY_VALUE].
  */
 open class DictionaryStringProvider(
-        private val dictionary: MutableMap<String, String> = mutableMapOf(),
-        private val emptyValue: String = DEFAULT_EMPTY_VALUE
+    private val dictionary: MutableMap<String, String> = mutableMapOf(),
+    private val emptyValue: String = DEFAULT_EMPTY_VALUE
 ) : StringProvider {
 
     /** Clears all stored key-value pairs from the dictionary. */
@@ -27,8 +27,8 @@ open class DictionaryStringProvider(
 
     companion object {
         fun from(
-                vararg pairs: Pair<String, String>,
-                emptyValue: String = DEFAULT_EMPTY_VALUE
+            vararg pairs: Pair<String, String>,
+            emptyValue: String = DEFAULT_EMPTY_VALUE
         ): DictionaryStringProvider {
             return DictionaryStringProvider(mutableMapOf(*pairs), emptyValue)
         }

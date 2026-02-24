@@ -13,9 +13,9 @@ class EqProcessorBlock : AbstractProcessorBlock() {
     override fun tagName(): String = TAG_EQ
 
     override fun process(
-            inputIterator: InputIterator,
-            stringProcessor: StringProcessor,
-            stringProvider: StringProvider
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
     ): String {
         inputIterator.skip(TAG_EQ)
 

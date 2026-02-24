@@ -13,16 +13,14 @@ class GtProcessorBlock : AbstractProcessorBlock() {
     override fun tagName(): String = TAG_GT
 
     override fun process(
-            inputIterator: InputIterator,
-            stringProcessor: StringProcessor,
-            stringProvider: StringProvider
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
     ): String {
         inputIterator.skip(TAG_GT)
 
-        val leftStatement =
-                stringProcessor.process(readTagContent(inputIterator), stringProvider).toIntOrNull()
-        val rightStatement =
-                stringProcessor.process(readTagContent(inputIterator), stringProvider).toIntOrNull()
+        val leftStatement = stringProcessor.process(readTagContent(inputIterator), stringProvider).toIntOrNull()
+        val rightStatement = stringProcessor.process(readTagContent(inputIterator), stringProvider).toIntOrNull()
 
         return if (leftStatement != null && rightStatement != null) {
             return (leftStatement > rightStatement).toString()

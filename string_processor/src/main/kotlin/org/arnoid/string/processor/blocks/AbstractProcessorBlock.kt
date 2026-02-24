@@ -9,8 +9,8 @@ import org.arnoid.string.processor.StringProvider
  * Base class for all processor blocks in the template engine. A processor block is responsible for
  * identifying its tag in the input and processing its content.
  *
- * All tags start with a control character [CHAR_CONTROL] and are usually followed by a tag name and
- * content enclosed in [START_TAG] and [END_TAG].
+ * All tags start with a control character [CONTROL_CHAR] and are usually followed by a tag name and
+ * content enclosed in [TAG_START] and [TAG_END].
  */
 abstract class AbstractProcessorBlock {
 
@@ -27,19 +27,19 @@ abstract class AbstractProcessorBlock {
 
     /** Processes the block's logic and appends the result to the [output] writer. */
     open fun process(
-            output: Writer,
-            inputIterator: InputIterator,
-            stringProcessor: StringProcessor,
-            stringProvider: StringProvider
+        output: Writer,
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
     ) {
         output.append(process(inputIterator, stringProcessor, stringProvider))
     }
 
     /** Processes the block's logic and returns the result as a string. */
     abstract fun process(
-            inputIterator: InputIterator,
-            stringProcessor: StringProcessor,
-            stringProvider: StringProvider
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
     ): String
 
     /** Reads the content of a tag if it matches the [tagName]. */
@@ -50,12 +50,12 @@ abstract class AbstractProcessorBlock {
     }
 
     /**
-     * Will read content of [InputIterator] after next [START_TAG] until next [END_TAG] ending after
-     * [END_TAG] if [precondition] is met.
+     * Will read content of [InputIterator] after next [TAG_START] until next [TAG_END] ending after
+     * [TAG_END] if [precondition] is met.
      */
     protected fun readTagContentIf(
-            inputIterator: InputIterator,
-            precondition: (inputIterator: InputIterator) -> Boolean
+        inputIterator: InputIterator,
+        precondition: (inputIterator: InputIterator) -> Boolean
     ): String {
         return if (precondition.invoke(inputIterator)) {
             readTagContent(inputIterator)
@@ -65,7 +65,7 @@ abstract class AbstractProcessorBlock {
     }
 
     /**
-     * Reads everything from the next [START_TAG] to the corresponding [END_TAG], handling nested
+     * Reads everything from the next [TAG_START] to the corresponding [TAG_END], handling nested
      * tags.
      */
     protected fun readTagContent(inputIterator: InputIterator): String {
@@ -78,9 +78,9 @@ abstract class AbstractProcessorBlock {
             val nextChar = inputIterator.next()
 
             if (contentStart) {
-                if (nextChar == START_TAG) {
+                if (nextChar == TAG_START) {
                     level++
-                } else if (nextChar == END_TAG) {
+                } else if (nextChar == TAG_END) {
                     if (level == 0) {
                         break
                     } else {
@@ -89,7 +89,7 @@ abstract class AbstractProcessorBlock {
                 }
 
                 output.append(nextChar)
-            } else if (nextChar == START_TAG) {
+            } else if (nextChar == TAG_START) {
                 contentStart = true
             }
         }
@@ -99,12 +99,12 @@ abstract class AbstractProcessorBlock {
 
     companion object {
         /** The character that triggers tag processing. Default is '$'. */
-        const val CHAR_CONTROL = '$'
+        const val CONTROL_CHAR = '$'
 
         /** The character that marks the start of a tag's content. Default is '{'. */
-        const val START_TAG = '{'
+        const val TAG_START = '{'
 
         /** The character that marks the end of a tag's content. Default is '}'. */
-        const val END_TAG = '}'
+        const val TAG_END = '}'
     }
 }

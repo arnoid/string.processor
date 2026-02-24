@@ -13,13 +13,16 @@ class ArrayRandomProcessorBlock : AbstractProcessorBlock() {
     override fun tagName(): String = TAG_RND
 
     override fun process(
-            inputIterator: InputIterator,
-            stringProcessor: StringProcessor,
-            stringProvider: StringProvider
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
     ): String {
-        return readTagContent(inputIterator).split(ARRAY_DELIMITER).random().let { randomItem ->
-            stringProcessor.process(randomItem, stringProvider)
-        }
+        return readTagContent(inputIterator)
+            .split(ARRAY_DELIMITER)
+            .random()
+            .let { randomItem ->
+                stringProcessor.process(randomItem, stringProvider)
+            }
     }
 
     companion object {

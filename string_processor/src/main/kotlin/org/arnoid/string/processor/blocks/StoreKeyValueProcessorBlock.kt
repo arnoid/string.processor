@@ -18,10 +18,10 @@ class StoreKeyValueProcessorBlock : AbstractProcessorBlock() {
     override fun tagName(): String = TAG_NAME
 
     override fun process(
-            output: Writer,
-            inputIterator: InputIterator,
-            stringProcessor: StringProcessor,
-            stringProvider: StringProvider
+        output: Writer,
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
     ) {
         val outputBuilder = StringBuilder()
 
@@ -41,9 +41,9 @@ class StoreKeyValueProcessorBlock : AbstractProcessorBlock() {
     }
 
     override fun process(
-            inputIterator: InputIterator,
-            stringProcessor: StringProcessor,
-            stringProvider: StringProvider
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
     ): String {
         // not used
         return ""

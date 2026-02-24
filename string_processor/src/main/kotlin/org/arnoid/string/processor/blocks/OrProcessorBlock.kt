@@ -13,16 +13,14 @@ class OrProcessorBlock : AbstractProcessorBlock() {
     override fun tagName(): String = TAG_OR
 
     override fun process(
-            inputIterator: InputIterator,
-            stringProcessor: StringProcessor,
-            stringProvider: StringProvider
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
     ): String {
         inputIterator.skip(TAG_OR)
 
-        val leftStatement =
-                stringProcessor.process(readTagContent(inputIterator), stringProvider).toBoolean()
-        val rightStatement =
-                stringProcessor.process(readTagContent(inputIterator), stringProvider).toBoolean()
+        val leftStatement = stringProcessor.process(readTagContent(inputIterator), stringProvider).toBoolean()
+        val rightStatement = stringProcessor.process(readTagContent(inputIterator), stringProvider).toBoolean()
 
         return (leftStatement || rightStatement).toString()
     }

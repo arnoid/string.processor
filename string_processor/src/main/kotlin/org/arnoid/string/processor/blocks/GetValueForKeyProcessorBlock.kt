@@ -10,12 +10,12 @@ import org.arnoid.string.processor.StringProvider
  */
 class GetValueForKeyProcessorBlock : AbstractProcessorBlock() {
 
-    override fun tagName(): String = START_TAG.toString()
+    override fun tagName(): String = TAG_START.toString()
 
     override fun process(
-            inputIterator: InputIterator,
-            stringProcessor: StringProcessor,
-            stringProvider: StringProvider
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
     ): String {
         val tagContent = readTagContent(inputIterator)
 

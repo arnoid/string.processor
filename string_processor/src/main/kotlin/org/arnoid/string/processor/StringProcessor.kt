@@ -2,7 +2,6 @@ package org.arnoid.string.processor
 
 import java.io.StringWriter
 import java.io.Writer
-import java.util.*
 import org.arnoid.string.processor.blocks.*
 
 /**
@@ -18,24 +17,24 @@ class StringProcessor(
      * Sequence of blocks is important, as processing attempts are done in order provided by list.
      */
     private val blocks: List<AbstractProcessorBlock> =
-            listOf(
-                    EscapeProcessorBlock(),
-                    WhenProcessorBlock(),
-                    IfElseProcessorBlock(),
-                    EqProcessorBlock(),
-                    NeqProcessorBlock(),
-                    GtProcessorBlock(),
-                    LtProcessorBlock(),
-                    GeqProcessorBlock(),
-                    LeqProcessorBlock(),
-                    AndProcessorBlock(),
-                    OrProcessorBlock(),
-                    NotProcessorBlock(),
-                    GetValueForKeyProcessorBlock(),
-                    ArrayRandomProcessorBlock(),
-                    StoreFunctionKeyValueProcessorBlock(),
-                    StoreKeyValueProcessorBlock(),
-            )
+        listOf(
+            EscapeProcessorBlock(),
+            WhenProcessorBlock(),
+            IfElseProcessorBlock(),
+            EqProcessorBlock(),
+            NeqProcessorBlock(),
+            GtProcessorBlock(),
+            LtProcessorBlock(),
+            GeqProcessorBlock(),
+            LeqProcessorBlock(),
+            AndProcessorBlock(),
+            OrProcessorBlock(),
+            NotProcessorBlock(),
+            GetValueForKeyProcessorBlock(),
+            ArrayRandomProcessorBlock(),
+            StoreFunctionKeyValueProcessorBlock(),
+            StoreKeyValueProcessorBlock(),
+        )
 ) {
 
     /**
@@ -46,11 +45,9 @@ class StringProcessor(
      * @param stringProvider The provider for variable resolution and storage.
      * @return The processed and trimmed string.
      */
-    fun process(input: String, stringProvider: StringProvider): String {
-        val stringWriter = StringWriter()
-        process(input, stringWriter, stringProvider)
-        return stringWriter.toString().trim()
-    }
+    fun process(input: String, stringProvider: StringProvider): String = with(StringWriter()) {
+        process(input, this, stringProvider)
+    }.toString().trim()
 
     /**
      * Processes the [input] string and writes the output to the [output] Writer.
@@ -64,7 +61,7 @@ class StringProcessor(
 
         while (inputIterator.hasNext()) {
             val nextChar = inputIterator.next()
-            if (nextChar == AbstractProcessorBlock.CHAR_CONTROL) {
+            if (nextChar == AbstractProcessorBlock.CONTROL_CHAR) {
                 // control char detected
 
                 for (block in blocks) {

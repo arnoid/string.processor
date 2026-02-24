@@ -20,20 +20,17 @@ class StoreFunctionKeyValueProcessorBlock : AbstractProcessorBlock() {
         val isFunctionStartDefined = functionBodyBeginIndex != -1
 
         return isNextLetter // next is letter
-        &&
-                (functionNameBodyDelimiterIndex + 1 ==
-                        functionBodyBeginIndex) // name-body delimiter is before body tag
-                &&
-                isFunctionStartDefined
+                && (functionNameBodyDelimiterIndex + 1 == functionBodyBeginIndex) // name-body delimiter is before body tag
+                && isFunctionStartDefined
     }
 
     override fun tagName(): String = TAG_NAME
 
     override fun process(
-            output: Writer,
-            inputIterator: InputIterator,
-            stringProcessor: StringProcessor,
-            stringProvider: StringProvider
+        output: Writer,
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
     ) {
         val outputBuilder = StringBuilder()
 
@@ -53,13 +50,10 @@ class StoreFunctionKeyValueProcessorBlock : AbstractProcessorBlock() {
     }
 
     override fun process(
-            inputIterator: InputIterator,
-            stringProcessor: StringProcessor,
-            stringProvider: StringProvider
-    ): String {
-        // not used
-        return ""
-    }
+        inputIterator: InputIterator,
+        stringProcessor: StringProcessor,
+        stringProvider: StringProvider
+    ): String = ""
 
     companion object {
         const val TAG_NAME = "STORE_FUNCTION_FOR_KEY"
