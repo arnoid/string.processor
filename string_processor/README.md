@@ -64,42 +64,42 @@ All tags start with `$` sign.
 * Format: `$funName={{value}}`
 * Description: value will be put into `StringProvider.set(key, value)` without processing. This will lead to behavior when function body will be evaluated whenever function will be called.
 * Example:
-    * Template:
-      ```text
-      $function1={{abcd}}
-      $function2={{${function1}}}
-      ${function2}
-      ```
-    * Result: 
-      ```text
-      abcd
-      ```
+  * Template:
+    ```text
+    $function1={{abcd}}
+    $function2={{${function1}}}
+    ${function2}
+    ```
+  * Result: 
+    ```text
+    abcd
+    ```
 
 ### Set `value` for `key`
 * Format: `$key={value}`
 * Description: results of `value` processing will be put into `StringProvider.set(key, value)`.
 * Example:
-    * Template:
-      ```text
-      $key={abcd}
-      ```
-    * Result: No output.
-      ```text
-      ```
+  * Template:
+    ```text
+    $key={abcd}
+    ```
+  * Result: No output.
+    ```text
+    ```
 
 ### Get `value` for `key`
 * Format: `${key}`
 * Description: processor will process `key` and will call `StringProvider.get(key)` with evaluated key. Any value returned by `StringProvider` will be processed and injected into output.
 * Example:
-    * Template:
-      ```text
-      $key={abcd}
-      ${key}
-      ```
-    * Result: 
-      ```text
-      abcd
-      ```
+  * Template:
+    ```text
+    $key={abcd}
+    ${key}
+    ```
+  * Result: 
+    ```text
+    abcd
+    ```
 
 ### IF tag
 * :no_entry: tag was modified in `1.3`
@@ -128,14 +128,14 @@ All tags start with `$` sign.
        2. if pair `if_condition` evaluation result is `false` then iterate to next pair
     5. if no `if_condition`s were evaluated as `true`, then `$else` statement will be evaluated and returned as result
 * Example - regular `if`:
-    * Template:
-      ```text
-      $if{true}{if_statement}
-      ```
-    * Result:
-      ```text
-      if_statement
-      ```
+  * Template:
+    ```text
+    $if{true}{if_statement}
+    ```
+  * Result:
+    ```text
+    if_statement
+    ```
 * Example - `if-else`:
   * Template:
     ```text
@@ -147,16 +147,16 @@ All tags start with `$` sign.
     else_statement
     ```
 * Example - `if-elseif-else`:
-    * Template:
-      ```text
-      $if{false}{if_statement}
-      $elseif{true}{elseif_statement}
-      $else{else_statement}
-      ```
-    * Result:
-      ```text
-      elseif_statement
-      ```
+  * Template:
+    ```text
+    $if{false}{if_statement}
+    $elseif{true}{elseif_statement}
+    $else{else_statement}
+    ```
+  * Result:
+    ```text
+    elseif_statement
+    ```
 
 ### WHEN tag
 * Format:
@@ -178,129 +178,155 @@ All tags start with `$` sign.
         2. if pair `casecase_value_condition` evaluation result not equals to  from step 4 then iterate to next pair
     6. if no `case`s evaluation results were equal to `when_value_statement` evaluation result , then `$else` statement will be evaluated and returned as result
 * Example
-    * Template:
-      ```text
-      $when{1}
-      $case{0}{value_0}
-      $case{1}{value_1}
-      $case{2}{value_2}
-      $else{else_value}
-      ```
-    * Result:
-      ```text
-      value_1
-      ```
+  * Template:
+    ```text
+    $when{1}
+    $case{0}{value_0}
+    $case{1}{value_1}
+    $case{2}{value_2}
+    $else{else_value}
+    ```
+  * Result:
+    ```text
+    value_1
+    ```
 
 ### EQ tag
 * Format: `$eq{left_expression}{right_expression}`
 * Description: this will return `true` if evaluated results of `left_expression` and `right_expression` statements are equal, `false` otherwise.
 * Example:
-    * Template:
-      ```text
-      $eq{abcd}{abcd}
-      ```
-    * Result:
-      ```text
-      true
-      ```
+  * Template:
+    ```text
+    $eq{abcd}{abcd}
+    ```
+  * Result:
+    ```text
+    true
+    ```
 
 ### NEQ tag
 * Format: `$neq{left_expression}{right_expression}`
 * Description: this will return `true` if evaluated results of `left_expression` and `right_expression` statements are not equal, `false` otherwise.
 * Example:
-    * Template:
-      ```text
-      $neq{abcd}{abcd}
-      ```
-    * Result: 
-      ```text
-      false
-      ```
+  * Template:
+    ```text
+    $neq{abcd}{abcd}
+    ```
+  * Result: 
+    ```text
+    false
+    ```
 
 ### AND tag
 * Format: `$and{left_expression}{right_expression}`
 * :warning: Works for boolean (`true` \ `false`) evaluation results only. If result of evaluation of `left_expression` or `right_expression` is not a boolean string, then tag will return `false`.
 * Description: this will return the result of applying logical `AND` operator to evaluated results of `left_expression` and `right_expression`. Any of expressions are evaluated to `true` if evaluation result is a word `true`, `false` otherwise.
 * Example:
-    * Template:
-      ```text
-      $and{true}{false}
-      ```
-    * Result: 
-      ```text
-      false
-      ```
+  * Template:
+    ```text
+    $and{true}{false}
+    ```
+  * Result: 
+    ```text
+    false
+    ```
 
 ### OR tag
 * Format: `$or{left_expression}{right_expression}`
 * :warning: Works for boolean (`true` \ `false`) evaluation results only. If result of evaluation of `left_expression` or `right_expression` is not a boolean string, then tag will return `false`.
 * Description: this will return the result of applying logical `OR` operator to evaluated results of `left_expression` and `right_expression`. Any of expressions are evaluated to `true` if evaluation result is a word `true`, `false` otherwise.
 * Example:
-    * Template:
-      ```text
-      $or{true}{false}
-      ```
-    * Result: 
-      ```text
-      true
-      ```
+  * Template:
+    ```text
+    $or{true}{false}
+    ```
+  * Result: 
+    ```text
+    true
+    ```
 
 ### GT tag
 * Format: `$gt{left_expression}{right_expression}`
 * :warning: Works for integer evaluation results only. If result of evaluation of `left_expression` or `right_expression` is a non-integer string, then tag will return `false`. 
 * Description: this will return `true` if evaluated result of `left_expression` is greater than evaluated result of `right_expression`, `false` otherwise.
 * Example:
-    * Template:
-      ```text
-      $gt{2}{1}
-      ```
-    * Result: 
-      ```text
-      true
-      ```
+  * Template:
+    ```text
+    $gt{2}{1}
+    ```
+  * Result: 
+    ```text
+    true
+    ```
 
 ### LT tag
 * Format: `$lt{left_expression}{right_expression}`
 * :warning: Works for `integer` evaluation results only. If result of evaluation of `left_expression` or `right_expression` is a non-integer string, then tag will return `false`. 
 * Description: this will return `true` if evaluated result of `left_expression` is lesser than evaluated result of `right_expression`, `false` otherwise.
 * Example:
-    * Template:
-      ```text
-      $lt{2}{1}
-      ```
-    * Result: 
-      ```text
-      false
-      ```
+  * Template:
+    ```text
+    $lt{2}{1}
+    ```
+  * Result: 
+    ```text
+    false
+    ```
 
 ### GEQ tag
 * Format: `$geq{left_expression}{right_expression}`
 * :warning: Works for `integer` evaluation results only. If result of evaluation of `left_expression` or `right_expression` is a non-integer string, then tag will return `false`. 
 * Description: this will return `true` if evaluated result of `left_expression` is greater than or equal to evaluated result of `right_expression`, `false` otherwise.
 * Example:
-    * Template:
-      ```text
-      $geq{2}{1}
-      ```
-    * Result: 
-      ```text
-      true
-      ```
+  * Template:
+    ```text
+    $geq{2}{1}
+    ```
+  * Result: 
+    ```text
+    true
+    ```
 
 ### LEQ tag
 * Format: `$leq{left_expression}{right_expression}`
 * :warning: Works for integer evaluation results only. If result of evaluation of `left_expression` or `right_expression` is a non-integer string, then tag will return `false`. 
 * Description: this will return `true` if evaluated result of `left_expression` is lesser than or equal to evaluated result of `right_expression`, `false` otherwise.
 * Example:
-    * Template:
-      ```text
-      $leq{2}{1}
-      ```
-    * Result: 
-      ```text
-      true
-      ```
+  * Template:
+    ```text
+    $leq{2}{1}
+    ```
+  * Result: 
+    ```text
+    true
+    ```
 
+### UPPER tag
+* Format: `$upper{expression}`
+* Description: this will change the string case to upper case.
+* Example:
+  * Template:
+    ```text
+    $upper{some text}
+    ```
+  * Result
+    ```text
+    SOME TEXT
+    ```
+
+### UPPER tag
+* Format: `$upper{expression}`
+* Description: this will change the string case to upper case.
+* Example:
+  * Template:
+    ```text
+    $lower{SOME TEXT}
+    ```
+  * Result
+    ```text
+    some text
+    ```
+      
 ## Nesting and Recursion
 
 It is possible to use tags recursively. For example:

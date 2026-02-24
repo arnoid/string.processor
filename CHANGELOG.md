@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### [2.0.0]
+#### Addded
+* Case manipulation tags. See documentation for details
+  * `$upper{}`
+  * `$lower{}`
+
 ## [1.3.0] - 2022-06-21
 ### Added
 * WHEN tag implementation `$when{value}$case{case_value}{case_statement}$else{else_statement}`. See documentation for more details.
