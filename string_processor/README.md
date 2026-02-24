@@ -332,19 +332,18 @@ All tags start with `$` sign.
 It is possible to use tags recursively. For example:
 
 ```
-$random_gender=$end{male|female}
-$gender={${random_gender}}
-$gender_proform={
-    $if {
-        $eq {${gender}} {female}
-    }
-    {She}
-    {He}
-}
-${gender_proform} was processed.
+$random_character=$rnd{a|b}
+$character={${random_character}}
+$character_to_name={{
+    $when{${character}}
+    $case{a}{Alice}
+    $case{b}{Bob}
+    $else{Unknown}
+}}
+${$character_to_name} was processed.
 ```
 
-This example will return `She was processed.` or `He was processed`.
+This example will return `Alice was processed.` or `Bob was processed.` or `Unknown was processed.`.
 
 ## Function or Key-For-Value
 

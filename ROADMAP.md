@@ -28,7 +28,7 @@ This document outlines proposed improvements and new features for the `string.pr
 *   [ ] **Scoped Variables**: Support local variable scopes within blocks to prevent variable leakage.
 
 ### 2. Utility Blocks
-*   [ ] **String Manipulation**:
+*   [X] **String Manipulation**:
     *   `$upper{text}` / `$lower{text}`: Case conversion.
     *   `$trim{text}`: Removing surrounding whitespace.
     *   `$replace{original}{search}{replace}`: String replacement.
