@@ -5,7 +5,7 @@ import org.arnoid.string.processor.StringProcessor
 import org.arnoid.string.processor.StringProvider
 
 /**
- * Conditional logic processor block. Usage: `$if{condition}{statement} $elseif{cond}{stmt}
+ * Conditional logic processor block. Usage: `$if{condition}{statement} $elseif{condition}{statement}
  * $else{default}` Evaluates conditions and returns the corresponding statement.
  */
 class IfElseProcessorBlock : AbstractProcessorBlock() {
@@ -34,10 +34,7 @@ class IfElseProcessorBlock : AbstractProcessorBlock() {
         val elseStatement = readTagContent(inputIterator, "$CONTROL_CHAR$TAG_ELSE")
 
         for (ifConditionToStatementPair in ifConditionsToStatements) {
-            if (stringProcessor
-                            .process(ifConditionToStatementPair.first, stringProvider)
-                            .toBoolean()
-            ) {
+            if (stringProcessor.process(ifConditionToStatementPair.first, stringProvider).toBoolean()) {
                 return stringProcessor.process(ifConditionToStatementPair.second, stringProvider)
             }
         }

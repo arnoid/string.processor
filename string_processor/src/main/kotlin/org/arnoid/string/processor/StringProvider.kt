@@ -18,4 +18,11 @@ interface StringProvider {
      * @param value The string value to store.
      */
     fun set(key: String, value: String)
+
+    /**
+     * Checks if a value is associated with the given [key].
+     * @param key The identifier for the string value.
+     * @return True if the key is found, false otherwise.
+     */
+    fun has(key: String): Boolean
 }

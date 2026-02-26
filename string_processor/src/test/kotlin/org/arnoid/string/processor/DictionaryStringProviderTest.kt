@@ -58,6 +58,17 @@ internal class DictionaryStringProviderTest {
         verifyNoMoreInteractions(mockDictionary)
     }
 
+    @Test
+    fun testHas() {
+        val key = "key"
+
+        `when`(mockDictionary.containsKey(key)).thenReturn(true)
+        assertEquals(true, stringProvider.has(key))
+
+        `when`(mockDictionary.containsKey(key)).thenReturn(false)
+        assertEquals(false, stringProvider.has(key))
+    }
+
     private companion object {
         private const val DEFAULT_EMPTY_VALUE = "DEFAULT_EMPTY_VALUE"
     }

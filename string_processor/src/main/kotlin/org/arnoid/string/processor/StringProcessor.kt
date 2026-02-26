@@ -11,34 +11,39 @@ import org.arnoid.string.processor.blocks.*
  * @property blocks The list of processor blocks available for this processor.
  */
 class StringProcessor(
-    /**
-     * Processor blocks that will be used to process input.
-     *
-     * Sequence of blocks is important, as processing attempts are done in order provided by
-     * list.
-     */
-    private val blocks: List<AbstractProcessorBlock> =
-        listOf(
-            EscapeProcessorBlock(),
-            WhenProcessorBlock(),
-            IfElseProcessorBlock(),
-            EqProcessorBlock(),
-            NeqProcessorBlock(),
-            GtProcessorBlock(),
-            LtProcessorBlock(),
-            GeqProcessorBlock(),
-            LeqProcessorBlock(),
-            AndProcessorBlock(),
-            OrProcessorBlock(),
-            NotProcessorBlock(),
-            UpperProcessorBlock(),
-            LowerProcessorBlock(),
-            CommentProcessorBlock(),
-            GetValueForKeyProcessorBlock(),
-            ArrayRandomProcessorBlock(),
-            StoreFunctionKeyValueProcessorBlock(),
-            StoreKeyValueProcessorBlock(),
-        )
+        /**
+         * Processor blocks that will be used to process input.
+         *
+         * Sequence of blocks is important, as processing attempts are done in order provided by
+         * list.
+         */
+        private val blocks: List<AbstractProcessorBlock> =
+                listOf(
+                        EscapeProcessorBlock(),
+                        WhenProcessorBlock(),
+                        IfElseProcessorBlock(),
+                        EqProcessorBlock(),
+                        NeqProcessorBlock(),
+                        GtProcessorBlock(),
+                        LtProcessorBlock(),
+                        GeqProcessorBlock(),
+                        LeqProcessorBlock(),
+                        AndProcessorBlock(),
+                        OrProcessorBlock(),
+                        NotProcessorBlock(),
+                        UpperProcessorBlock(),
+                        LowerProcessorBlock(),
+                        CommentProcessorBlock(),
+                        GetValueForKeyProcessorBlock(),
+                        ArrayRandomProcessorBlock(),
+                        StoreFunctionKeyValueProcessorBlock(),
+                        StoreKeyValueProcessorBlock(),
+                ),
+        /**
+         * Enable or disable "strict mode". If enabled, then processor will throw an exception if
+         * key is missing in dictionary.
+         */
+        val strictMode: Boolean = false
 ) {
 
     /**
@@ -63,6 +68,12 @@ class StringProcessor(
      * @param stringProvider The provider for variable resolution and storage.
      */
     fun process(input: String, output: Writer, stringProvider: StringProvider) {
+        val effectiveProvider =
+                if (strictMode && stringProvider !is StrictStringProvider) {
+                    StrictStringProvider(stringProvider)
+                } else {
+                    stringProvider
+                }
         val inputIterator = InputIterator(input)
 
         while (inputIterator.hasNext()) {
@@ -72,7 +83,7 @@ class StringProcessor(
 
                 for (block in blocks) {
                     if (block.match(inputIterator)) {
-                        block.process(output, inputIterator, this, stringProvider)
+                        block.process(output, inputIterator, this, effectiveProvider)
                         break
                     }
                 }

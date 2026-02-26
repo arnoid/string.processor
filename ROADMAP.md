@@ -42,4 +42,4 @@ This document outlines proposed improvements and new features for the `string.pr
 ### 3. Integration & Tooling
 *   [ ] **Environment Provider**: A `StringProvider` implementation that reads from System Environment variables or `.properties` files.
 *   [ ] **Template Includes**: A `$include{path/to/file}` block to allow modular template design.
-*   [ ] **Strict Mode**: An optional configuration flag for `StringProcessor` that throws an error when a requested key is missing from the provider.
+*   [X] **Strict Mode**: An optional configuration flag for `StringProcessor` that throws an error when a requested key is missing from the provider.
